@@ -5,7 +5,7 @@
 
   <title>Weather App</title>
   <!-- <script src="./jquery.js"></script> -->
-
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
   <script src="./script.js"></script>
@@ -19,6 +19,8 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="style.css">
 
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.0.3/dist/leaflet.css" integrity="sha512-07I2e+7D8p6he1SIM+1twR5TIrhUQn9+I6yjqD53JQjFiMf8EtC93ty0/5vJTZGF8aAocvHYNEDJajGdNx1IsQ==" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.0.3/dist/leaflet.js" integrity="sha512-A7vV8IFfih/D732iSSKi20u/ooOfj/AGehOKq0f4vLT1Zr2Y+RX7C+w8A1gaSasGtRUZpF/NZgzSAu4/Gc41Lg==" crossorigin=""></script>
 
 <!--
 <script>
@@ -36,7 +38,7 @@ $(".form-inline").submit(function (event) {
 -->
 </head>
 <body>
-
+<div id="mapid" style="height: 400px;"></div>
   <div class="container sectionCity">
     <div class="row">
       <div class="col-xs-12 col-sm-offset-2 col-sm-8">
@@ -64,7 +66,8 @@ $(".form-inline").submit(function (event) {
 <%
 for (var i =0; i<cityList.length; i++){
 %>
-  <li class="list-group-item"><span class="city"><%=cityList[i].name%></span> <img class="logo-meteo" src="http://openweathermap.org/img/w/<%=cityList[i].weather[0].icon%>.png"> <span class="desc"><%=cityList[i].weather[0].description%></span> <span class="label label-warning"><%=cityList[i].main.temp_max%> °C</span> <span class="label label-default"><%=cityList[i].main.temp_min%> °C</span> <a href="/delete?position=<%=i%>"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
+  <li data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>"  class="list-group-item"><span class="city"><%=cityList[i].name%></span> <img class="logo-meteo" src="http://openweathermap.org/img/w/<%=cityList[i].weather[0].icon%>.png"> <span class="desc"><%=cityList[i].weather[0].description%></span> <span class="label label-warning"><%=cityList[i].main.temp_max%> °C</span> <span class="label label-default"><%=cityList[i].main.temp_min%> °C</span>
+    <span class="btn btn-danger" data-temp="<%=cityList[i].main.temp%>" data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>" role="button">Info</span><a href="/delete?position=<%=i%>"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
 <%
 }
 %>

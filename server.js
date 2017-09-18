@@ -16,6 +16,8 @@ app.get('/add', function(req, res){
   request("http://api.openweathermap.org/data/2.5/weather?q="+req.query.city+"&APPID=9b754f1f40051783e4f72c176953866e&units=metric&lang=fr", function(error, response, body){
   body=JSON.parse(body);
     console.log(body);
+    console.log(body.coord);
+    console.log(body.coord.lon);
     cityList.push(body);
     res.render('index', {cityList : cityList});
   });
