@@ -36,7 +36,7 @@ maxZoom: 18,
 }).addTo(mymap);
 
 $('li').each(function(index){
-  console.log($(this).attr("data-lat")+" // "+$(this).attr("data-long"));
+  // console.log($(this).attr("data-lat")+" // "+$(this).attr("data-long"));
 
 var lat = $(this).attr("data-lat");
 var long =$(this).attr("data-long");
@@ -49,8 +49,8 @@ mymap= mymap.setView([lat, long], 8);
 $(".btn-danger").click(function(){
 
   mymap= mymap.setView([$(this).attr('data-lat'), $(this).attr('data-long')], 12);
-console.log($(this).attr('data-lat'));
-console.log($(this).attr('data-long'));
+// console.log($(this).attr('data-lat'));
+// console.log($(this).attr('data-long'));
 L.marker([$(this).attr('data-lat'), $(this).attr('data-long')]).addTo(mymap)
         .bindPopup("Temperature:<br>"+$(this).attr('data-temp'))
         .openPopup();
@@ -62,6 +62,20 @@ L.marker([$(this).attr('data-lat'), $(this).attr('data-long')]).addTo(mymap)
       .openPopup();
 */
 
+});
+
+$( "#sortable" ).on( "sortupdate", function( event, ui ) {
+  let li = document.querySelectorAll('li');
+  // let position = Array.from(li);
+  // console.log(position);
+  // console.log(li);
+  let position = [];
+  for(var i =0; i<li.length; i++){
+    position.push(parseInt(li[i].id));
+  }
+  // var word = 'hello';
+  console.log(position);
+  $.getJSON("http://localhost:8080/update?place="+position);
 });
 
 })
