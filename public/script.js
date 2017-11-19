@@ -66,6 +66,13 @@ L.marker([$(this).attr('data-lat'), $(this).attr('data-long')]).addTo(mymap)
 
 $( "#sortable" ).on( "sortupdate", function( event, ui ) {
   let li = document.querySelectorAll('li');
+  console.log(li);
+
+  $('.delete').each(function(index){
+    // console.log(index);
+    $(this).attr('href', '/delete?position='+index);
+  });
+  // console.log(deleteCity);
   // let position = Array.from(li);
   // console.log(position);
   // console.log(li);
@@ -76,6 +83,7 @@ $( "#sortable" ).on( "sortupdate", function( event, ui ) {
   // var word = 'hello';
   console.log(position);
   $.getJSON("http://localhost:8080/update?place="+position);
+
 });
 
 })
