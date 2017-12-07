@@ -68,22 +68,39 @@ $( "#sortable" ).on( "sortupdate", function( event, ui ) {
   let li = document.querySelectorAll('li');
   console.log(li);
 
+  let city = document.querySelectorAll('.city');
+  console.log(city);
+
+
   $('.delete').each(function(index){
     // console.log(index);
     $(this).attr('href', '/delete?position='+index);
   });
+
+
   // console.log(deleteCity);
   // let position = Array.from(li);
   // console.log(position);
   // console.log(li);
+
   let position = [];
+  let cities = [];
   for(var i =0; i<li.length; i++){
     position.push(parseInt(li[i].id));
+    cities.push(city[i].innerText);
   }
+
+  // for(var i=0; i<li.length; i++){
+  //   const cities[i] = new Ville(parseInt(li[i].id), city[i].innerText);
+  // }
+
   // var word = 'hello';
   console.log(position);
-  $.getJSON("http://localhost:8080/update?place="+position);
+  console.log(cities);
+  $.getJSON("http://localhost:8080/update?place="+position+"&ville="+cities);
 
 });
+
+
 
 })

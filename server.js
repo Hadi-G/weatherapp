@@ -6,18 +6,18 @@ var app = express();
 
 var options = { server: { socketOptions: {keepAlive: 300000, connectTimeoutMS: 30000 } }};
 mongoose.connect('mongodb://hg75:zipang@ds113586.mlab.com:13586/meteo', options, function(err) {
-
 });
 
   var citySchema = mongoose.Schema({
-      cityName: String,
-      icon: String,
-      description:String,
-      main_temp_max: String,
-      main_temp_min: String,
-      main_temp: String,
-      coord_lon: String,
-      coord_lat: String
+    name: String,
+    icon: String,
+    description:String,
+    main_temp_max: Number,
+    main_temp_min: Number,
+    main_temp: Number,
+    coord_lon: Number,
+    coord_lat: Number,
+    position:Number,
   });
 
 var CityModel = mongoose.model('City', citySchema);
@@ -25,59 +25,98 @@ var CityModel = mongoose.model('City', citySchema);
 app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
-
 var cityList=[];
 
 app.get('/', function(req, res){
-  res.render('index', {cityList : cityList});
-});
+  CityModel.find().sort({position:1}).exec(function(error, cities3){
+      cityList = cities3;
+      res.render('index', {cityList : cityList});
+  });
+  });
+
+
+var indice = -1;
 
 app.get('/add', function(req, res){
   request("http://api.openweathermap.org/data/2.5/weather?q="+req.query.city+"&APPID=9b754f1f40051783e4f72c176953866e&units=metric&lang=fr", function(error, response, body){
   body=JSON.parse(body);
-    // console.log(body);
-    // console.log(body.coord);
-    // console.log(body.coord.lon);
+
+    indice += 1;
 
     var cityDb = new CityModel({
-      cityName: body.name,
+      name: body.name,
       icon: body.weather[0].icon,
       description:body.weather[0].description,
       main_temp_max: body.main.temp_max,
       main_temp_min: body.main.temp_min,
       main_temp: body.main.temp,
       coord_lon: body.coord.lon,
-      coord_lat: body.coord.lat
+      coord_lat: body.coord.lat,
+      position:indice
     });
 
     cityDb.save(function(error, contact){
-
+      CityModel.find().sort({position:1}).exec(function(error, cities3){
+          cityList = cities3;
+          console.log(cityList);
+          res.render('index', {cityList : cityList});
+      });
+      // res.render('index', {cityList : cityList});
     });
-
-    cityList.push(body);
-    // console.log(cityList);
-    res.render('index', {cityList : cityList});
   });
 });
 
 app.get('/delete', function(req, res){
-  cityList.splice(req.query.position, 1);
-  res.render('index', {cityList : cityList});
-});
+
+  indice -= 1;
+
+  CityModel.remove({position:req.query.position}, function(error){
+    CityModel.find().sort({position:1}).exec(function(error, cities){
+
+      for(var i=0; i<cities.length; i++){
+        CityModel.update({name:cities[i].name},{position:i}, function(error, raw, list){
+          });
+        }
+
+    setTimeout(function(){
+      CityModel.find().sort({position:1}).exec(function(error, cities3){
+          cityList = cities3;
+          // console.log(cityList);
+          res.render('index', {cityList : cityList});
+    }, 200);
+
+        });
+      });
+    });
+  });
 
 app.get('/update', function(req, res){
   let position = req.query.place.split(',');
   let positionNumber = [];
+  let ville = req.query.ville.split(',');
+  let villeParse = [];
+
   for(var i =0;i<position.length;i++){
     positionNumber.push(parseInt(position[i]));
+    villeParse.push(ville[i]);
   }
 
-  console.log(positionNumber);
-  let copyCityList = [...cityList];
-  for(var j =0; j<cityList.length;j++){
-    cityList.splice(j,1,copyCityList[positionNumber[j]]);
-  }
-  res.render('index', {cityList : cityList});
+  CityModel.find(function(error, cities){
+    for(var j = 0; j<cities.length; j++){
+      CityModel.update({name:villeParse[j]}, {position:villeParse.indexOf(villeParse[j])}, function(error, raw){
+      });
+    }
+
+});
+
+setTimeout(function(){
+  CityModel.find().sort({position:1}).exec(function(error, cities3){
+      cityList = cities3;
+      console.log(cityList);
+      // res.render('index', {cityList : cityList});
+});
+}, 500);
+
 });
 
 

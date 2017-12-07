@@ -66,8 +66,10 @@ $(".form-inline").submit(function (event) {
 <%
 for (var i =0; i<cityList.length; i++){
 %>
-  <li id='<%=[i]%>' data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>"  class="list-group-item"><span class="city"><%=cityList[i].name%></span> <img class="logo-meteo" src="http://openweathermap.org/img/w/<%=cityList[i].weather[0].icon%>.png"> <span class="desc"><%=cityList[i].weather[0].description%></span> <span class="label label-warning"><%=cityList[i].main.temp_max%> °C</span> <span class="label label-default"><%=cityList[i].main.temp_min%> °C</span>
-    <span class="btn btn-danger" data-temp="<%=cityList[i].main.temp%>" data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>" role="button">Info</span><a class='delete' href="/delete?position=<%=i%>"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
+
+
+    <li id='<%=[i]%>' data-long="<%=cityList[i].coord_lon%>" data-lat="<%=cityList[i].coord_lat%>"  class="list-group-item"><span class="city"><%=cityList[i].name%></span> <img class="logo-meteo" src="http://openweathermap.org/img/w/<%=cityList[i].icon%>.png"> <span class="desc"><%=cityList[i].description%></span> <span class="label label-warning"><%=cityList[i].main_temp_max%> °C</span> <span class="label label-default"><%=cityList[i].main_temp_min%> °C</span>
+      <span class="btn btn-danger" data-temp="<%=cityList[i].main_temp%>" data-long="<%=cityList[i].coord_lon%>" data-lat="<%=cityList[i].coord_lat%>" role="button">Info</span><a class='delete' href="/delete?position=<%=cityList[i].position%>"><span class="glyphicon glyphicon-remove-circle"></span></a></li>
 <%
 }
 %>

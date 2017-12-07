@@ -1,0 +1,78 @@
+<!-- <li id='<%=[i]%>' data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>"  class="list-group-item"><span class="city"><%=cityList[i].name%></span> <img class="logo-meteo" src="http://openweathermap.org/img/w/<%=cityList[i].weather[0].icon%>.png"> <span class="desc"><%=cityList[i].weather[0].description%></span> <span class="label label-warning"><%=cityList[i].main.temp_max%> °C</span> <span class="label label-default"><%=cityList[i].main.temp_min%> °C</span>
+  <span class="btn btn-danger" data-temp="<%=cityList[i].main.temp%>" data-long="<%=cityList[i].coord.lon%>" data-lat="<%=cityList[i].coord.lat%>" role="button">Info</span><a class='delete' href="/delete?position=<%=i%>"><span class="glyphicon glyphicon-remove-circle"></span></a></li> -->
+
+
+
+  // console.log(positionNumber);
+  // let copyCityList = [...cityList];
+
+
+  // CityModel.find().sort({position:0});
+  // db.people.find().sort( { name: 1 } )
+
+
+  // CityModel.find(function(error, cities2){
+  //   // console.log(cities2);
+  //
+  //   let copyCityList = [...cities2];
+  //   cityList = [...cities2];
+  //   // cityList = cities2;
+  //
+  //   for(var k = 0; k<cityList.length;k++){
+  //   cityList.splice(k,1,copyCityList[positionNumber[k]]);
+  // }
+  //   res.render('index', {cityList : cityList});
+  // });
+
+
+// for(var j =0; j<cityList.length;j++){
+//   cityList.splice(j,1,copyCityList[positionNumber[j]]);
+// }
+
+
+const Ville = function Arbre()
+
+
+// console.log(cities2);
+//
+//   cityList = cities2;
+//   copyCityList = [...cities2];
+//
+//   for(var k = 0; k<cityList.length;k++){
+//   cityList.splice(k,1,copyCityList[copyCityList[k].position]);
+// }
+//   console.log(cityList);
+// res.render('index', {cityList : cityList});
+});
+// res.render('index', {cityList : cityList});
+// });
+
+
+
+
+// CityModel.find(function(error, cities2){
+//   // console.log(cities2);
+//
+//   cityList = cities2;
+//   copyCityList = [...cities2];
+//
+//   for(var k = 0; k<cityList.length;k++){
+//   cityList.splice(k,1,copyCityList[copyCityList[k].position]);
+// }
+//   // console.log(cityList);
+//   res.render('index', {cityList : cityList});
+// });
+
+
+
+// CityModel.find(function(error, cities2){
+//   // console.log(cities2);
+//   cityList = cities2;
+//   copyCityList = [...cities2];
+//
+//     for(var k = 0; k<cityList.length;k++){
+//     cityList.splice(k,1,copyCityList[copyCityList[k].position]);
+//   }
+//
+//   res.render('index', {cityList:cityList});
+// });
