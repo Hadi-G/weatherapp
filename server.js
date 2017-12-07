@@ -120,6 +120,7 @@ setTimeout(function(){
 });
 
 
-app.listen(8080, function () {
-  console.log("Server listening on port 8080");
+const port = (process.env.PORT || 8080);
+app.listen(port, () => {
+  console.log('ok ecoute sur port 8080');
 });
